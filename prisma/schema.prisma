@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model whatsapp__messengs {
+  id             Int                   @id @default(autoincrement())
+  sid            String                @unique
+  number         String                @db.VarChar(63)
+  message        String
+  message_status whatsappMessageStatus @default(sending)
+  created_at     DateTime              @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime              @updatedAt
+}
+
+enum whatsappMessageStatus {
+  queued
+  sending
+  sent
+  failed
+  delivered
+  undelivered
+  receiving
+  received
+  read
+}
