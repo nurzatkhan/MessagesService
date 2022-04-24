@@ -1,0 +1,38 @@
+version: '3.0'
+
+services:
+  main:
+    container_name: main
+    build:
+      context: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - TWILIO_ACCOUNT_SID=ACefe71dfd83714310416a8fe98d91a67b
+      - TWILIO_AUTH_TOKEN=f257187ba732e14bb1b5caa9cc6ceadf
+      - TWILIO_NUMBER=+14155238886
+      - HOST=https://a414-95-58-57-32.ngrok.io
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?schema=public
+      - PORT=9999
+    ports:
+      - 9999:9999
+    command: npm run dev
+    depends_on:
+      - db
+    restart: always
+
+
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 6432:5432
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - database_data:/var/lib/postgresql/data
+
+volumes:
+  database_data:
+    driver: local

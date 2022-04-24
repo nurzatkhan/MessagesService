@@ -10,14 +10,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model whatsapp__messengs {
-  id             Int                   @id @default(autoincrement())
-  sid            String                @unique
-  number         String                @db.VarChar(63)
-  message        String
-  message_status whatsappMessageStatus @default(sending)
-  created_at     DateTime              @default(now()) @db.Timestamptz(6)
-  updated_at     DateTime              @updatedAt
+model whatsapp_messages {
+  id                   Int                   @id @default(autoincrement())
+  sid                  String                @unique
+  uuid                 String                @unique
+  numberPhone          String                @db.VarChar(12)
+  message              String
+  sourceService        String                @default("undefined")
+  statusMessage_twilio whatsappMessageStatus @default(sending)
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
 }
 
 enum whatsappMessageStatus {

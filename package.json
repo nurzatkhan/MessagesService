@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
+    "generate:prisma": "npx prisma migrate dev --name init",
+    "start:dev": "npm run generate:prisma && npm run dev",
     "build": "tsc -p ."
   },
   "keywords": [],
@@ -16,10 +18,13 @@
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "http-errors": "^2.0.0",
+    "save": "^2.5.0",
     "twilio": "^3.76.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/http-errors": "^1.8.2",
     "@types/node": "^17.0.25",
     "nodemon": "^2.0.15",
     "prisma": "^3.12.0",

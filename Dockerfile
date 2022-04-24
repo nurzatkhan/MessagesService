@@ -1,20 +1,14 @@
 FROM node:14.15.3 as base
 EXPOSE 6000 
-WORKDIR /node
+WORKDIR /app
 COPY package*.json ./
 COPY prisma ./
 RUN npm i && npm cache clean --force
+RUN npx prisma migrate dev --name init
+
 COPY . .
 
 # development
 FROM base as dev
-CMD ["npm", "run", "watch-debug"]
-
-# test
-FROM base as test
-CMD ["npm", "run", "test"]
-
-# production
-FROM base as prod
-RUN npm run build
-CMD ["npm", "run", "start"]
+CMD ["npx", "prisma", "migrate", "dev", "--name", "init"]
+CMD ["npm", "run", "dev"]

@@ -9,3 +9,9 @@ export enum whatsappMessageStatusEnum {
     received,
     read,
 }
+export interface messagesDataType {
+    numberPhone: string
+    message: string
+    sourceService?:string
+    uuid: string
+}
