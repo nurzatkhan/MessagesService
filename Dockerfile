@@ -4,11 +4,10 @@ WORKDIR /app
 COPY package*.json ./
 COPY prisma ./
 RUN npm i && npm cache clean --force
-RUN npx prisma migrate dev --name init
+RUN npx prisma generate
 
 COPY . .
 
 # development
 FROM base as dev
-CMD ["npx", "prisma", "migrate", "dev", "--name", "init"]
 CMD ["npm", "run", "dev"]

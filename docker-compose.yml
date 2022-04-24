@@ -9,12 +9,12 @@ services:
       - .:/app
       - /app/node_modules
     environment:
-      - TWILIO_ACCOUNT_SID=ACefe71dfd83714310416a8fe98d91a67b
-      - TWILIO_AUTH_TOKEN=f257187ba732e14bb1b5caa9cc6ceadf
-      - TWILIO_NUMBER=+14155238886
-      - HOST=https://a414-95-58-57-32.ngrok.io
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?schema=public
-      - PORT=9999
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}
+      TWILIO_NUMBER: ${TWILIO_NUMBER}
+      HOST: ${HOST}
+      DATABASE_URL: ${DATABASE_URL}
+      PORT: ${PORT}
     ports:
       - 9999:9999
     command: npm run dev
